@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ── Backgrounds ──────────────────────────────── */
+  --bg:        #09090B;
+  --surface:   #111115;
+  --surface-2: #18181D;
+  --surface-3: #222228;
+
+  /* ── Gold (primary accent) ────────────────────── */
+  --gold:        #C4A86A;
+  --gold-bright: #D4BA7C;
+  --gold-dim:    rgba(196,168,106,0.10);
+  --gold-glow:   rgba(196,168,106,0.28);
+  --gold-border: rgba(196,168,106,0.18);
+
+  /* ── Petroleum blue (secondary accent) ──────────── */
+  --petrol:        #1B627A;
+  --petrol-bright: #2A7E98;
+  --petrol-dim:    rgba(27,98,122,0.12);
+  --petrol-border: rgba(27,98,122,0.22);
+
+  /* ── Text ─────────────────────────────────────── */
+  --text:   #EDE9E0;
+  --text-2: #7A7A84;
+  --text-3: #4A4A52;
+
+  /* ── Status ───────────────────────────────────── */
+  --success: #2E7D52;
+  --danger:  #C84040;
+  --warning: #C4A86A;
+
+  /* ── Borders ──────────────────────────────────── */
+  --border:   rgba(255,255,255,0.06);
+  --border-2: rgba(255,255,255,0.10);
+
+  /* ── Legacy aliases (keep existing components working) ── */
+  --color-bg-primary:    var(--bg);
+  --color-surface:       var(--surface);
+  --color-surface-2:     var(--surface-2);
+  --color-accent-purple: var(--gold);
+  --color-accent-cyan:   #18C3F3;
+  --color-accent-green:  #3F6A48;
+  --color-accent-amber:  var(--gold);
+  --color-text-primary:  var(--text);
+  --color-text-secondary:var(--text-2);
+  --color-border:        var(--border);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background-color: var(--bg);
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg) !important;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+  min-height: 100vh;
+}
+
+#root {
+  background-color: var(--bg);
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+  outline: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+input, textarea { font-family: inherit; }
+
+/* ── Utilities ────────────────────────────────── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Gold gradient text ───────────────────────── */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #D4BA7C 0%, #C4A86A 50%, #9A7E46 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Glass card ───────────────────────────────── */
+.glass {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
