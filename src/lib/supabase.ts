@@ -1,14 +1,14 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined
 
-const isValidUrl = (url: string) => {
-  try { return Boolean(new URL(url)) } catch { return false }
-}
+console.log('SUPABASE URL:', supabaseUrl?.slice(0, 20))
 
-export const supabase = (isValidUrl(supabaseUrl) && supabaseAnonKey)
-  ? createClient(supabaseUrl, supabaseAnonKey)
+const isValid = supabaseUrl?.startsWith('https://') && (supabaseAnonKey?.length ?? 0) > 10
+
+export const supabase = isValid
+  ? createClient(supabaseUrl!, supabaseAnonKey!)
   : null as any
 
 export type Database = {
