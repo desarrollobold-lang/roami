@@ -4,19 +4,19 @@ import { CheckCircle2, Plane, Home, Utensils, MapPin, Sun, type LucideIcon } fro
 import type { ItineraryDay, Activity } from '../../types/itinerary'
 
 const ACTIVITY_COLORS: Record<Activity['type'], string> = {
-  transport: '#18C3F3',
-  accommodation: '#C4A86A',
-  food: '#C9A44E',
-  activity: '#3F5F3A',
-  free: '#A0A0A8',
+  transport:     '#18C3F3',
+  accommodation: '#C9A84B',
+  food:          '#5BAA7A',
+  activity:      '#5BAA7A',
+  free:          '#7A8C78',
 }
 
 const ACTIVITY_ICONS: Record<Activity['type'], LucideIcon> = {
-  transport: Plane,
+  transport:     Plane,
   accommodation: Home,
-  food: Utensils,
-  activity: MapPin,
-  free: Sun,
+  food:          Utensils,
+  activity:      MapPin,
+  free:          Sun,
 }
 
 const DAY_CITIES: Record<string, string> = {
@@ -75,9 +75,9 @@ export function ItineraryScreen() {
   }
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#09090B' }}>
+    <div className="min-h-screen" style={{ backgroundColor: '#0B1410' }}>
       {/* Hero image */}
-      <div className="relative" style={{ height: 160, backgroundColor: '#111115' }}>
+      <div className="relative" style={{ height: 160, backgroundColor: '#172118' }}>
         <img
           src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=800&q=80"
           alt="Europa 2026"
@@ -87,18 +87,16 @@ export function ItineraryScreen() {
         <div
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(to top, rgba(15,15,18,0.9) 0%, rgba(15,15,18,0.3) 60%, transparent 100%)',
+            background: 'linear-gradient(to top, rgba(11,20,16,0.95) 0%, rgba(11,20,16,0.3) 60%, transparent 100%)',
           }}
         />
         <div className="absolute bottom-0 left-0 px-5 pb-4">
-          <h1 className="font-bold text-white leading-tight" style={{ fontSize: 28 }}>
+          <h1 style={{ fontSize: 28, fontWeight: 700, color: '#F2EDE4', lineHeight: 1.1, margin: 0, fontFamily: 'Fraunces, serif' }}>
             Europa 2026
           </h1>
-          <p className="text-[13px] mt-0.5" style={{ color: 'rgba(255,255,255,0.65)' }}>Itinerario</p>
+          <p style={{ fontSize: 13, color: '#7A8C78', marginTop: 2 }}>Itinerario</p>
         </div>
       </div>
-
-      {/* Day selector */}
 
       {/* Day selector */}
       <div className="flex gap-2 px-5 pt-4 overflow-x-auto no-scrollbar pb-4">
@@ -112,10 +110,10 @@ export function ItineraryScreen() {
               onClick={() => setSelectedDayId(day.id)}
               className="shrink-0 px-4 py-2 rounded-chip text-sm font-semibold border transition-all duration-200"
               style={{
-                backgroundColor: isActive ? '#C4A86A' : 'rgba(255,255,255,0.06)',
-                borderColor: isActive ? '#C4A86A' : 'rgba(255,255,255,0.08)',
-                color: isActive ? '#F5F5F7' : '#A0A0A8',
-                boxShadow: isActive ? '0 0 20px rgba(196,168,106,0.45)' : 'none',
+                backgroundColor: isActive ? 'rgba(201,168,75,0.15)' : 'rgba(30,48,34,0.5)',
+                borderColor: isActive ? 'rgba(201,168,75,0.4)' : '#1E3022',
+                color: isActive ? '#C9A84B' : '#7A8C78',
+                boxShadow: isActive ? '0 0 12px rgba(201,168,75,0.2)' : 'none',
               }}
             >
               Día {day.day_number} · {DAY_CITIES[day.id] ?? ''}
@@ -127,23 +125,20 @@ export function ItineraryScreen() {
       {/* Progress bar */}
       <div className="px-5 mb-5">
         <div className="flex items-center justify-between mb-1.5">
-          <p className="text-[11px] font-semibold text-text-secondary uppercase tracking-wide">
+          <p style={{ fontSize: 11, fontWeight: 600, color: '#7A8C78', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
             {completedCount} de {total} actividades
           </p>
-          <p className="text-[11px] font-bold" style={{ color: '#C4A86A' }}>
+          <p style={{ fontSize: 11, fontWeight: 700, color: '#C9A84B' }}>
             {Math.round(progress * 100)}%
           </p>
         </div>
         <div
-          className="w-full h-1.5 rounded-full overflow-hidden"
-          style={{ backgroundColor: 'rgba(255,255,255,0.08)' }}
+          className="w-full rounded-full overflow-hidden"
+          style={{ height: 6, backgroundColor: '#1E3022' }}
         >
           <motion.div
             className="h-full rounded-full"
-            style={{
-              backgroundColor: '#C4A86A',
-              boxShadow: '0 0 8px rgba(196,168,106,0.6)',
-            }}
+            style={{ backgroundColor: '#C9A84B', boxShadow: '0 0 8px rgba(201,168,75,0.5)' }}
             animate={{ width: `${progress * 100}%` }}
             transition={{ duration: 0.35, ease: 'easeOut' }}
           />
@@ -161,10 +156,10 @@ export function ItineraryScreen() {
           className="px-5 pb-32"
         >
           <div className="mb-4">
-            <h2 className="font-bold text-text-primary" style={{ fontSize: 18 }}>
+            <h2 style={{ fontSize: 18, fontWeight: 700, color: '#F2EDE4', fontFamily: 'Fraunces, serif', margin: 0 }}>
               {selectedDay.title}
             </h2>
-            <p className="text-[13px] text-text-secondary mt-0.5">
+            <p style={{ fontSize: 13, color: '#7A8C78', marginTop: 4 }}>
               {new Date(selectedDay.date + 'T12:00:00').toLocaleDateString('es-ES', {
                 weekday: 'long', day: 'numeric', month: 'long',
               })}
@@ -172,10 +167,10 @@ export function ItineraryScreen() {
           </div>
 
           <div className="relative">
-            {/* Vertical line */}
+            {/* Vertical timeline line */}
             <div
               className="absolute top-0 bottom-0"
-              style={{ left: 59, width: 1, backgroundColor: 'rgba(255,255,255,0.07)' }}
+              style={{ left: 59, width: 1, backgroundColor: '#1E3022' }}
             />
 
             <div className="space-y-4">
@@ -188,7 +183,7 @@ export function ItineraryScreen() {
                   <div key={activity.id} className="flex items-start">
                     {/* Time */}
                     <div className="shrink-0 text-right pr-3" style={{ width: 52, paddingTop: 14 }}>
-                      <span className="text-[12px] font-medium" style={{ color: '#A0A0A8' }}>
+                      <span style={{ fontSize: 12, fontWeight: 500, color: '#7A8C78' }}>
                         {activity.time}
                       </span>
                     </div>
@@ -203,7 +198,7 @@ export function ItineraryScreen() {
                         style={{
                           backgroundColor: `${color}33`,
                           borderColor: color,
-                          boxShadow: `0 0 8px ${color}66`,
+                          boxShadow: `0 0 8px ${color}55`,
                         }}
                       />
                     </div>
@@ -214,11 +209,12 @@ export function ItineraryScreen() {
                         whileTap={{ scale: 0.97 }}
                         transition={{ duration: 0.1 }}
                         onClick={() => toggleActivity(activity.id)}
-                        className="relative p-4 rounded-card border cursor-pointer overflow-hidden"
+                        className="relative p-4 cursor-pointer overflow-hidden"
                         style={{
-                          backgroundColor: '#1F1F21',
-                          borderColor: isCompleted ? 'rgba(63,95,58,0.4)' : 'rgba(255,255,255,0.08)',
-                          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+                          backgroundColor: '#172118',
+                          border: `1px solid ${isCompleted ? 'rgba(91,170,122,0.25)' : '#1E3022'}`,
+                          borderRadius: 20,
+                          boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
                           opacity: isCompleted ? 0.55 : 1,
                           transition: 'opacity 0.25s, border-color 0.25s',
                         }}
@@ -230,7 +226,7 @@ export function ItineraryScreen() {
                             className="absolute inset-0 flex items-center justify-center z-10"
                             style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}
                           >
-                            <CheckCircle2 size={28} color="#3F5F3A" strokeWidth={1.5} />
+                            <CheckCircle2 size={28} color="#5BAA7A" strokeWidth={1.5} />
                           </motion.div>
                         )}
 
@@ -238,25 +234,27 @@ export function ItineraryScreen() {
                           <div
                             className="flex items-center justify-center w-9 h-9 rounded-full shrink-0"
                             style={{
-                              backgroundColor: `${color}1A`,
-                              border: `1px solid ${color}44`,
+                              backgroundColor: `${color}18`,
+                              border: `1px solid ${color}40`,
                             }}
                           >
                             <Icon size={16} color={color} />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="font-semibold text-text-primary leading-tight" style={{ fontSize: 14 }}>
+                            <p style={{ fontSize: 14, fontWeight: 600, color: '#F2EDE4', lineHeight: 1.3 }}>
                               {activity.title}
                             </p>
                             {activity.location && (
-                              <p className="text-[12px] text-text-secondary mt-0.5">
+                              <p style={{ fontSize: 12, color: '#7A8C78', marginTop: 2 }}>
                                 {activity.location}
                               </p>
                             )}
                             {activity.notes && (
                               <p
-                                className="text-[11px] mt-2 px-2 py-1 rounded"
-                                style={{ backgroundColor: 'rgba(201,164,78,0.1)', color: '#C9A44E' }}
+                                style={{
+                                  fontSize: 11, marginTop: 8, padding: '4px 8px', borderRadius: 8,
+                                  backgroundColor: 'rgba(201,168,75,0.08)', color: '#C9A84B',
+                                }}
                               >
                                 📌 {activity.notes}
                               </p>

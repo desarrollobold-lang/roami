@@ -4,14 +4,14 @@ import { Plus, ArrowRight, Check } from 'lucide-react'
 import { AddSplitExpenseSheet } from './AddSplitExpenseSheet'
 import type { SplitGroup, SplitExpense, Balance } from '../../types/split'
 
-/* ── Palette ─────────────────────────────────────────── */
+/* ── Palette — no purple ─────────────────────────────── */
 const MEMBER_PALETTE: Record<string, { bg: string; text: string; border: string }> = {
-  Cris:  { bg: 'rgba(196,168,106,0.15)', text: '#C4A86A', border: 'rgba(196,168,106,0.3)' },
-  María: { bg: 'rgba(27,98,122,0.15)',   text: '#2A7E98', border: 'rgba(27,98,122,0.3)'   },
-  Diego: { bg: 'rgba(63,106,72,0.15)',   text: '#3F9A52', border: 'rgba(63,106,72,0.3)'   },
-  Ana:   { bg: 'rgba(138,106,207,0.15)', text: '#8A6ACF', border: 'rgba(138,106,207,0.3)' },
+  Cris:  { bg: 'rgba(201,168,75,0.12)',  text: '#C9A84B', border: 'rgba(201,168,75,0.25)'  },
+  María: { bg: 'rgba(91,170,122,0.12)',  text: '#5BAA7A', border: 'rgba(91,170,122,0.25)'  },
+  Diego: { bg: 'rgba(122,140,120,0.12)', text: '#7A8C78', border: 'rgba(122,140,120,0.25)' },
+  Ana:   { bg: 'rgba(24,195,243,0.1)',   text: '#18C3F3', border: 'rgba(24,195,243,0.2)'   },
 }
-const DEFAULT_PALETTE = { bg: 'rgba(255,255,255,0.08)', text: '#7A7A84', border: 'rgba(255,255,255,0.1)' }
+const DEFAULT_PALETTE = { bg: 'rgba(30,48,34,0.6)', text: '#7A8C78', border: '#1E3022' }
 
 const MOCK_GROUP: SplitGroup = {
   id: 'group-1', trip_id: 'mock-trip-1',
@@ -27,7 +27,6 @@ const INITIAL_EXPENSES: SplitExpense[] = [
   { id: 'se-4', group_id: 'group-1', description: 'Museo Louvre',    amount: 60,  currency: 'EUR', paid_by: 'Ana',   split_between: ['Cris','María','Diego','Ana'], date: '2026-05-18' },
 ]
 
-/* ── Balance computation ─────────────────────────────── */
 function computeBalances(expenses: SplitExpense[]): Balance[] {
   const net: Record<string, number> = {}
   for (const e of expenses) {
@@ -61,7 +60,6 @@ function fmtEur(n: number) {
   return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(n)
 }
 
-/* ── Avatar ──────────────────────────────────────────── */
 function Avatar({ name, size = 36 }: { name: string; size?: number }) {
   const p = MEMBER_PALETTE[name] ?? DEFAULT_PALETTE
   return (
@@ -71,7 +69,8 @@ function Avatar({ name, size = 36 }: { name: string; size?: number }) {
         backgroundColor: p.bg, color: p.text,
         border: `1px solid ${p.border}`,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontSize: Math.round(size * 0.38), fontWeight: 800, flexShrink: 0,
+        fontSize: Math.round(size * 0.38), fontWeight: 700, flexShrink: 0,
+        fontFamily: 'Fraunces, serif',
       }}
     >
       {name[0]}
@@ -90,7 +89,6 @@ export function SplitScreen() {
   const totalAmount = useMemo(() => expenses.reduce((s, e) => s + e.amount, 0), [expenses])
   const balances = useMemo(() => computeBalances(expenses), [expenses])
 
-  /* per-member totals */
   const memberTotals = useMemo(() => {
     const map: Record<string, number> = {}
     for (const m of MOCK_GROUP.members) map[m] = 0
@@ -99,30 +97,30 @@ export function SplitScreen() {
   }, [expenses])
 
   return (
-    <div className="min-h-screen pb-28" style={{ backgroundColor: '#09090B' }}>
+    <div className="min-h-screen pb-28" style={{ backgroundColor: '#0B1410' }}>
       {/* ── Header ──────────────────────────────── */}
       <div
         className="px-5 pt-14 pb-5"
-        style={{ background: 'linear-gradient(180deg, rgba(196,168,106,0.06) 0%, rgba(9,9,11,0) 100%)' }}
+        style={{ background: 'linear-gradient(180deg, rgba(201,168,75,0.05) 0%, rgba(11,20,16,0) 100%)' }}
       >
         <div className="flex items-center justify-between mb-5">
           <div>
-            <h1 style={{ fontSize: 30, fontWeight: 800, color: '#EDE9E0', margin: 0, letterSpacing: '-0.5px' }}>
+            <h1 style={{ fontSize: 30, fontWeight: 700, color: '#F2EDE4', margin: 0, letterSpacing: '-0.5px', fontFamily: 'Fraunces, serif' }}>
               Split
             </h1>
-            <p style={{ fontSize: 14, color: '#7A7A84', marginTop: 3 }}>Quién debe qué</p>
+            <p style={{ fontSize: 14, color: '#7A8C78', marginTop: 3 }}>Quién debe qué</p>
           </div>
           <motion.button
             whileTap={{ scale: 0.94 }}
             type="button"
             onClick={() => setSheetOpen(true)}
-            className="flex items-center gap-1.5 font-bold text-sm"
+            className="flex items-center gap-1.5 font-semibold text-sm"
             style={{
-              backgroundColor: '#C4A86A',
-              color: '#09090B',
+              backgroundColor: '#C9A84B',
+              color: '#0B1410',
               borderRadius: 14,
               padding: '10px 16px',
-              boxShadow: '0 0 20px rgba(196,168,106,0.35)',
+              boxShadow: '0 0 20px rgba(201,168,75,0.3)',
             }}
           >
             <Plus size={15} strokeWidth={2.8} />
@@ -133,16 +131,16 @@ export function SplitScreen() {
         {/* ── Summary hero card ───────────────────── */}
         <div
           style={{
-            background: 'linear-gradient(135deg, rgba(196,168,106,0.12) 0%, rgba(27,98,122,0.08) 100%)',
-            border: '1px solid rgba(196,168,106,0.18)',
+            background: 'linear-gradient(135deg, rgba(201,168,75,0.1) 0%, rgba(201,168,75,0.03) 100%)',
+            border: '1px solid rgba(201,168,75,0.2)',
             borderRadius: 22,
             padding: 20,
           }}
         >
-          <p style={{ fontSize: 11, fontWeight: 700, color: '#7A7A84', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+          <p style={{ fontSize: 11, fontWeight: 700, color: '#7A8C78', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
             Total del grupo
           </p>
-          <p style={{ fontSize: 38, fontWeight: 800, color: '#EDE9E0', margin: '4px 0 12px', letterSpacing: '-0.5px' }}>
+          <p style={{ fontSize: 38, fontWeight: 700, color: '#C9A84B', margin: '4px 0 12px', letterSpacing: '-0.5px', fontFamily: 'Fraunces, serif' }}>
             {fmtEur(totalAmount)}
           </p>
 
@@ -154,7 +152,7 @@ export function SplitScreen() {
               return (
                 <div key={m} className="flex items-center gap-3">
                   <Avatar name={m} size={24} />
-                  <div style={{ flex: 1, height: 6, borderRadius: 3, backgroundColor: 'rgba(255,255,255,0.08)', overflow: 'hidden' }}>
+                  <div style={{ flex: 1, height: 6, borderRadius: 3, backgroundColor: '#1E3022', overflow: 'hidden' }}>
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${pct * 100}%` }}
@@ -177,7 +175,7 @@ export function SplitScreen() {
                 <Avatar name={m} size={32} />
               </div>
             ))}
-            <span style={{ fontSize: 12, color: '#7A7A84', marginLeft: 8 }}>
+            <span style={{ fontSize: 12, color: '#7A8C78', marginLeft: 8 }}>
               {MOCK_GROUP.members.length} participantes
             </span>
           </div>
@@ -187,7 +185,7 @@ export function SplitScreen() {
       {/* ── Tabs ────────────────────────────────── */}
       <div
         className="flex mx-5 mb-4 p-1 rounded-2xl"
-        style={{ backgroundColor: '#111115', border: '1px solid rgba(255,255,255,0.06)' }}
+        style={{ backgroundColor: '#172118', border: '1px solid #1E3022' }}
       >
         {(['gastos', 'balances'] as Tab[]).map((t) => (
           <button
@@ -195,13 +193,13 @@ export function SplitScreen() {
             type="button"
             onClick={() => setTab(t)}
             className="relative flex-1 py-2.5 text-sm font-semibold rounded-xl transition-colors duration-200"
-            style={{ color: tab === t ? '#09090B' : '#7A7A84' }}
+            style={{ color: tab === t ? '#0B1410' : '#7A8C78' }}
           >
             {tab === t && (
               <motion.div
                 layoutId="tab-bg"
                 className="absolute inset-0 rounded-xl"
-                style={{ backgroundColor: '#C4A86A', boxShadow: '0 0 12px rgba(196,168,106,0.35)' }}
+                style={{ backgroundColor: '#C9A84B', boxShadow: '0 0 12px rgba(201,168,75,0.3)' }}
                 transition={{ duration: 0.2 }}
               />
             )}
@@ -227,8 +225,8 @@ export function SplitScreen() {
                 <div
                   key={e.id}
                   style={{
-                    backgroundColor: '#111115',
-                    border: '1px solid rgba(255,255,255,0.07)',
+                    backgroundColor: '#172118',
+                    border: '1px solid #1E3022',
                     borderRadius: 20,
                     padding: 16,
                   }}
@@ -236,7 +234,7 @@ export function SplitScreen() {
                   <div className="flex items-start gap-3">
                     <Avatar name={e.paid_by} size={40} />
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <p style={{ fontSize: 15, fontWeight: 700, color: '#EDE9E0' }}>{e.description}</p>
+                      <p style={{ fontSize: 15, fontWeight: 600, color: '#F2EDE4' }}>{e.description}</p>
                       <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                         <span
                           style={{
@@ -248,19 +246,19 @@ export function SplitScreen() {
                         >
                           Pagó {e.paid_by}
                         </span>
-                        <span style={{ fontSize: 11, color: '#4A4A52' }}>
+                        <span style={{ fontSize: 11, color: '#7A8C78' }}>
                           ÷ {e.split_between.length} personas
                         </span>
-                        <span style={{ fontSize: 11, color: '#4A4A52' }}>
+                        <span style={{ fontSize: 11, color: '#7A8C78' }}>
                           {e.date}
                         </span>
                       </div>
                     </div>
                     <div style={{ textAlign: 'right', flexShrink: 0 }}>
-                      <p style={{ fontSize: 18, fontWeight: 800, color: '#EDE9E0' }}>
+                      <p style={{ fontSize: 18, fontWeight: 700, color: '#F2EDE4', fontFamily: 'Fraunces, serif' }}>
                         {fmtEur(e.amount)}
                       </p>
-                      <p style={{ fontSize: 11, color: '#7A7A84', marginTop: 2 }}>
+                      <p style={{ fontSize: 11, color: '#7A8C78', marginTop: 2 }}>
                         {fmtEur(e.amount / e.split_between.length)} c/u
                       </p>
                     </div>
@@ -284,14 +282,14 @@ export function SplitScreen() {
                   className="flex items-center justify-center mx-auto mb-4"
                   style={{
                     width: 64, height: 64, borderRadius: '50%',
-                    backgroundColor: 'rgba(46,125,82,0.12)',
-                    border: '1px solid rgba(46,125,82,0.2)',
+                    backgroundColor: 'rgba(91,170,122,0.1)',
+                    border: '1px solid rgba(91,170,122,0.2)',
                   }}
                 >
-                  <Check size={28} color="#2E7D52" strokeWidth={2} />
+                  <Check size={28} color="#5BAA7A" strokeWidth={2} />
                 </div>
-                <p style={{ fontSize: 16, fontWeight: 700, color: '#EDE9E0' }}>¡Todo saldado!</p>
-                <p style={{ fontSize: 13, color: '#7A7A84', marginTop: 4 }}>No hay deudas pendientes en el grupo.</p>
+                <p style={{ fontSize: 16, fontWeight: 700, color: '#F2EDE4', fontFamily: 'Fraunces, serif' }}>¡Todo saldado!</p>
+                <p style={{ fontSize: 13, color: '#7A8C78', marginTop: 4 }}>No hay deudas pendientes en el grupo.</p>
               </div>
             ) : (
               balances.map((b) => {
@@ -306,10 +304,10 @@ export function SplitScreen() {
                     layout
                     animate={{ opacity: isSettled ? 0.4 : 1 }}
                     style={{
-                      backgroundColor: '#111115',
+                      backgroundColor: '#172118',
                       border: isSettled
-                        ? '1px solid rgba(46,125,82,0.25)'
-                        : '1px solid rgba(255,255,255,0.07)',
+                        ? '1px solid rgba(91,170,122,0.2)'
+                        : '1px solid #1E3022',
                       borderRadius: 20,
                       padding: 16,
                     }}
@@ -320,10 +318,10 @@ export function SplitScreen() {
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <div className="flex items-center gap-2">
                           <span style={{ fontSize: 14, fontWeight: 700, color: fromP.text }}>{b.from}</span>
-                          <ArrowRight size={14} color="#4A4A52" />
+                          <ArrowRight size={14} color="#7A8C78" />
                           <span style={{ fontSize: 14, fontWeight: 700, color: toP.text }}>{b.to}</span>
                         </div>
-                        <p style={{ fontSize: 12, color: isSettled ? '#2E7D52' : '#7A7A84', marginTop: 2 }}>
+                        <p style={{ fontSize: 12, color: isSettled ? '#5BAA7A' : '#7A8C78', marginTop: 2 }}>
                           {isSettled ? '✓ Liquidado' : 'Transferencia pendiente'}
                         </p>
                       </div>
@@ -333,9 +331,9 @@ export function SplitScreen() {
 
                     <div
                       className="flex items-center justify-between mt-3 pt-3"
-                      style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
+                      style={{ borderTop: '1px solid rgba(30,48,34,0.8)' }}
                     >
-                      <p style={{ fontSize: 22, fontWeight: 800, color: '#EDE9E0' }}>
+                      <p style={{ fontSize: 22, fontWeight: 700, color: '#F2EDE4', fontFamily: 'Fraunces, serif' }}>
                         {fmtEur(b.amount)}
                       </p>
                       {!isSettled ? (
@@ -343,11 +341,11 @@ export function SplitScreen() {
                           whileTap={{ scale: 0.93 }}
                           type="button"
                           onClick={() => setSettled((prev) => new Set([...prev, key]))}
-                          className="flex items-center gap-1.5 font-bold text-sm"
+                          className="flex items-center gap-1.5 font-semibold text-sm"
                           style={{
-                            backgroundColor: 'rgba(46,125,82,0.12)',
-                            color: '#2E7D52',
-                            border: '1px solid rgba(46,125,82,0.25)',
+                            backgroundColor: 'rgba(201,168,75,0.08)',
+                            color: '#C9A84B',
+                            border: '1px solid rgba(201,168,75,0.3)',
                             borderRadius: 12,
                             padding: '8px 14px',
                           }}
@@ -360,8 +358,8 @@ export function SplitScreen() {
                           style={{
                             fontSize: 12,
                             fontWeight: 700,
-                            color: '#2E7D52',
-                            backgroundColor: 'rgba(46,125,82,0.1)',
+                            color: '#5BAA7A',
+                            backgroundColor: 'rgba(91,170,122,0.08)',
                             padding: '6px 12px',
                             borderRadius: 10,
                           }}
@@ -387,11 +385,11 @@ export function SplitScreen() {
         className="fixed flex items-center justify-center rounded-2xl z-40"
         style={{
           bottom: 90, right: 20, width: 56, height: 56,
-          background: 'linear-gradient(135deg, #C4A86A 0%, #8A6030 100%)',
-          boxShadow: '0 0 24px rgba(196,168,106,0.45), 0 8px 24px rgba(0,0,0,0.5)',
+          backgroundColor: '#C9A84B',
+          boxShadow: '0 0 24px rgba(201,168,75,0.4), 0 8px 24px rgba(0,0,0,0.5)',
         }}
       >
-        <Plus size={24} color="white" strokeWidth={2.5} />
+        <Plus size={24} color="#0B1410" strokeWidth={2.5} />
       </motion.button>
 
       <AddSplitExpenseSheet

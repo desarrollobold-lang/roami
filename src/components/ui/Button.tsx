@@ -19,10 +19,10 @@ interface ButtonProps {
   className?: string
 }
 
-const variantClasses: Record<Variant, string> = {
-  primary: 'bg-accent-purple text-text-primary hover:opacity-90 border border-transparent',
-  secondary: 'bg-transparent text-text-primary border border-border-default hover:border-accent-purple',
-  ghost: 'bg-transparent text-text-primary border border-transparent hover:bg-white/5',
+const variantStyles: Record<Variant, React.CSSProperties> = {
+  primary:   { backgroundColor: '#C9A84B', color: '#0B1410', border: '1px solid transparent' },
+  secondary: { backgroundColor: 'transparent', color: '#F2EDE4', border: '1px solid #1E3022' },
+  ghost:     { backgroundColor: 'transparent', color: '#7A8C78', border: '1px solid transparent' },
 }
 
 const sizeClasses: Record<Size, string> = {
@@ -53,9 +53,9 @@ export function Button({
       disabled={isDisabled}
       whileTap={isDisabled ? undefined : { scale: 0.97 }}
       transition={{ duration: 0.1 }}
+      style={variantStyles[variant]}
       className={[
-        'inline-flex items-center justify-center rounded-input font-medium transition-all duration-200 cursor-pointer select-none',
-        variantClasses[variant],
+        'inline-flex items-center justify-center rounded-input font-semibold transition-all duration-200 cursor-pointer select-none',
         sizeClasses[size],
         fullWidth ? 'w-full' : '',
         isDisabled ? 'opacity-40 cursor-not-allowed' : '',

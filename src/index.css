@@ -3,50 +3,34 @@
 @tailwind utilities;
 
 :root {
-  /* ── Backgrounds ──────────────────────────────── */
-  --bg:        #09090B;
-  --surface:   #111115;
-  --surface-2: #18181D;
-  --surface-3: #222228;
+  /* ── TUKI design system ───────────────────────── */
+  --bg:        #0B1410;
+  --card:      #172118;
+  --card-2:    #1E2B1F;
+  --border:    #1E3022;
 
-  /* ── Gold (primary accent) ────────────────────── */
-  --gold:        #C4A86A;
-  --gold-bright: #D4BA7C;
-  --gold-dim:    rgba(196,168,106,0.10);
-  --gold-glow:   rgba(196,168,106,0.28);
-  --gold-border: rgba(196,168,106,0.18);
+  --gold:      #C9A84B;
+  --gold-dim:  rgba(201,168,75,0.10);
+  --gold-glow: rgba(201,168,75,0.28);
+  --gold-border: rgba(201,168,75,0.20);
 
-  /* ── Petroleum blue (secondary accent) ──────────── */
-  --petrol:        #1B627A;
-  --petrol-bright: #2A7E98;
-  --petrol-dim:    rgba(27,98,122,0.12);
-  --petrol-border: rgba(27,98,122,0.22);
+  --text:      #F2EDE4;
+  --muted:     #7A8C78;
 
-  /* ── Text ─────────────────────────────────────── */
-  --text:   #EDE9E0;
-  --text-2: #7A7A84;
-  --text-3: #4A4A52;
+  --success:   #5BAA7A;
+  --danger:    #C97070;
 
-  /* ── Status ───────────────────────────────────── */
-  --success: #2E7D52;
-  --danger:  #C84040;
-  --warning: #C4A86A;
-
-  /* ── Borders ──────────────────────────────────── */
-  --border:   rgba(255,255,255,0.06);
-  --border-2: rgba(255,255,255,0.10);
-
-  /* ── Legacy aliases (keep existing components working) ── */
-  --color-bg-primary:    var(--bg);
-  --color-surface:       var(--surface);
-  --color-surface-2:     var(--surface-2);
-  --color-accent-purple: var(--gold);
-  --color-accent-cyan:   #18C3F3;
-  --color-accent-green:  #3F6A48;
-  --color-accent-amber:  var(--gold);
-  --color-text-primary:  var(--text);
-  --color-text-secondary:var(--text-2);
-  --color-border:        var(--border);
+  /* ── Legacy aliases (keep Tailwind class references working) ── */
+  --color-bg-primary:     var(--bg);
+  --color-surface:        var(--card);
+  --color-surface-2:      var(--card-2);
+  --color-accent-purple:  var(--gold);
+  --color-accent-cyan:    #18C3F3;
+  --color-accent-green:   var(--success);
+  --color-accent-amber:   var(--gold);
+  --color-text-primary:   var(--text);
+  --color-text-secondary: var(--muted);
+  --color-border:         var(--border);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -58,14 +42,16 @@ html {
 
 body {
   margin: 0;
-  background-color: var(--bg) !important;
-  color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+  background-color: #0B1410 !important;
+  color: #F2EDE4;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overscroll-behavior: none;
   min-height: 100vh;
 }
+
+h1, h2, .display { font-family: 'Fraunces', serif; }
 
 #root {
   background-color: var(--bg);
@@ -89,7 +75,7 @@ input, textarea { font-family: inherit; }
 
 /* ── Gold gradient text ───────────────────────── */
 .text-gold-gradient {
-  background: linear-gradient(135deg, #D4BA7C 0%, #C4A86A 50%, #9A7E46 100%);
+  background: linear-gradient(135deg, #D4BA5C 0%, #C9A84B 50%, #9A7E32 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

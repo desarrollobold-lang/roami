@@ -19,7 +19,6 @@ const NAMES: Record<Currency, string> = {
   GBP: 'Libra esterlina', JPY: 'Yen japonés', ARS: 'Peso argentino', BRL: 'Real brasileño',
 }
 
-/* Fake 7-day trend data (multipliers relative to current rate) */
 const TREND: Record<Currency, number[]> = {
   CLP: [0.98, 0.99, 1.01, 0.99, 1.00, 1.02, 1.00],
   USD: [1.01, 1.00, 0.99, 1.01, 1.00, 0.99, 1.00],
@@ -119,15 +118,15 @@ function CurrencyPicker({
         onClick={() => setOpen(!open)}
         className="flex items-center gap-2"
         style={{
-          backgroundColor: 'rgba(255,255,255,0.06)',
-          border: '1px solid rgba(255,255,255,0.09)',
+          backgroundColor: 'rgba(30,48,34,0.6)',
+          border: '1px solid #1E3022',
           borderRadius: 12,
           padding: '8px 12px',
         }}
       >
         <span style={{ fontSize: 20 }}>{FLAGS[value]}</span>
-        <span style={{ fontSize: 15, fontWeight: 700, color: '#EDE9E0' }}>{value}</span>
-        <ChevronDown size={14} color="#7A7A84" />
+        <span style={{ fontSize: 15, fontWeight: 700, color: '#F2EDE4' }}>{value}</span>
+        <ChevronDown size={14} color="#7A8C78" />
       </button>
 
       <AnimatePresence>
@@ -139,8 +138,8 @@ function CurrencyPicker({
             transition={{ duration: 0.15 }}
             className="absolute top-full left-0 mt-2 z-20"
             style={{
-              backgroundColor: '#18181D',
-              border: '1px solid rgba(255,255,255,0.1)',
+              backgroundColor: '#172118',
+              border: '1px solid #1E3022',
               borderRadius: 16,
               overflow: 'hidden',
               minWidth: 180,
@@ -154,14 +153,14 @@ function CurrencyPicker({
                 onClick={() => { onChange(c); setOpen(false) }}
                 className="flex items-center gap-3 w-full px-4 py-3 text-left"
                 style={{
-                  backgroundColor: c === value ? 'rgba(196,168,106,0.1)' : 'transparent',
-                  borderBottom: '1px solid rgba(255,255,255,0.05)',
+                  backgroundColor: c === value ? 'rgba(201,168,75,0.1)' : 'transparent',
+                  borderBottom: '1px solid rgba(30,48,34,0.6)',
                 }}
               >
                 <span style={{ fontSize: 18 }}>{FLAGS[c]}</span>
                 <div>
-                  <p style={{ fontSize: 14, fontWeight: 600, color: '#EDE9E0' }}>{c}</p>
-                  <p style={{ fontSize: 11, color: '#7A7A84' }}>{NAMES[c]}</p>
+                  <p style={{ fontSize: 14, fontWeight: 600, color: '#F2EDE4' }}>{c}</p>
+                  <p style={{ fontSize: 11, color: '#7A8C78' }}>{NAMES[c]}</p>
                 </div>
               </button>
             ))}
@@ -205,15 +204,15 @@ export function CurrencyScreen() {
   }
 
   return (
-    <div className="min-h-screen pb-28" style={{ backgroundColor: '#09090B' }}>
+    <div className="min-h-screen pb-28" style={{ backgroundColor: '#0B1410' }}>
       <div className="px-5 pt-14 pb-6 space-y-5">
 
         {/* ── Header ──────────────────────────────── */}
         <div>
-          <h1 style={{ fontSize: 30, fontWeight: 800, color: '#EDE9E0', letterSpacing: '-0.5px', margin: 0 }}>
+          <h1 style={{ fontSize: 30, fontWeight: 800, color: '#F2EDE4', letterSpacing: '-0.5px', margin: 0, fontFamily: 'Fraunces, serif' }}>
             Monedas
           </h1>
-          <p style={{ fontSize: 14, color: '#7A7A84', marginTop: 4 }}>
+          <p style={{ fontSize: 14, color: '#7A8C78', marginTop: 4 }}>
             Tasas en tiempo real · Actualizado hoy
           </p>
         </div>
@@ -221,16 +220,17 @@ export function CurrencyScreen() {
         {/* ── Converter card ───────────────────────── */}
         <div
           style={{
-            backgroundColor: '#111115',
-            border: '1px solid rgba(255,255,255,0.07)',
+            backgroundColor: '#172118',
+            border: '1px solid #1E3022',
             borderRadius: 24,
             overflow: 'visible',
             position: 'relative',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
           }}
         >
           {/* Amount input */}
           <div className="px-5 pt-5 pb-4">
-            <p style={{ fontSize: 11, fontWeight: 700, color: '#4A4A52', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 12 }}>
+            <p style={{ fontSize: 11, fontWeight: 700, color: '#7A8C78', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 12 }}>
               Convertidor
             </p>
 
@@ -241,7 +241,7 @@ export function CurrencyScreen() {
               onChange={(e) => setRawAmount(e.target.value)}
               placeholder="0"
               className="w-full bg-transparent outline-none text-center"
-              style={{ fontSize: 56, fontWeight: 800, color: '#EDE9E0', lineHeight: 1 }}
+              style={{ fontSize: 52, fontWeight: 700, color: '#F2EDE4', lineHeight: 1, fontFamily: 'Fraunces, serif' }}
             />
 
             {/* Quick amounts */}
@@ -253,9 +253,9 @@ export function CurrencyScreen() {
                   onClick={() => setRawAmount(q.toString())}
                   className="shrink-0 px-3 py-1.5 rounded-chip text-xs font-semibold"
                   style={{
-                    backgroundColor: Number(rawAmount) === q ? '#C4A86A' : 'rgba(255,255,255,0.06)',
-                    color: Number(rawAmount) === q ? '#09090B' : '#7A7A84',
-                    border: Number(rawAmount) === q ? 'none' : '1px solid rgba(255,255,255,0.08)',
+                    backgroundColor: Number(rawAmount) === q ? '#C9A84B' : 'rgba(30,48,34,0.6)',
+                    color: Number(rawAmount) === q ? '#0B1410' : '#7A8C78',
+                    border: Number(rawAmount) === q ? 'none' : '1px solid #1E3022',
                   }}
                 >
                   {q.toLocaleString()}
@@ -264,12 +264,12 @@ export function CurrencyScreen() {
             </div>
           </div>
 
-          <div style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.06)' }} />
+          <div style={{ height: 1, backgroundColor: '#1E3022' }} />
 
           {/* From / swap / to */}
           <div className="flex items-center gap-3 px-5 py-4">
             <div className="flex-1">
-              <p style={{ fontSize: 11, color: '#4A4A52', marginBottom: 6, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>De</p>
+              <p style={{ fontSize: 11, color: '#7A8C78', marginBottom: 6, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>De</p>
               <CurrencyPicker value={from} onChange={setFrom} exclude={to} />
             </div>
 
@@ -282,52 +282,52 @@ export function CurrencyScreen() {
                 width: 42,
                 height: 42,
                 borderRadius: 14,
-                backgroundColor: 'rgba(196,168,106,0.1)',
-                border: '1px solid rgba(196,168,106,0.22)',
+                backgroundColor: 'rgba(201,168,75,0.1)',
+                border: '1px solid rgba(201,168,75,0.25)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 flexShrink: 0,
                 marginTop: 18,
-                boxShadow: '0 0 16px rgba(196,168,106,0.15)',
+                boxShadow: '0 0 16px rgba(201,168,75,0.15)',
               }}
             >
-              <ArrowLeftRight size={16} color="#C4A86A" />
+              <ArrowLeftRight size={16} color="#C9A84B" />
             </motion.button>
 
             <div className="flex-1">
-              <p style={{ fontSize: 11, color: '#4A4A52', marginBottom: 6, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>A</p>
+              <p style={{ fontSize: 11, color: '#7A8C78', marginBottom: 6, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>A</p>
               <CurrencyPicker value={to} onChange={setTo} exclude={from} />
             </div>
           </div>
 
-          <div style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.06)' }} />
+          <div style={{ height: 1, backgroundColor: '#1E3022' }} />
 
           {/* Result */}
           <div className="px-5 py-5">
             <div
               style={{
-                background: 'linear-gradient(135deg, rgba(196,168,106,0.12) 0%, rgba(27,98,122,0.08) 100%)',
-                border: '1px solid rgba(196,168,106,0.18)',
+                backgroundColor: 'rgba(201,168,75,0.05)',
+                border: '1px solid rgba(201,168,75,0.3)',
                 borderRadius: 18,
                 padding: '18px 20px',
                 textAlign: 'center',
               }}
             >
-              <p style={{ fontSize: 13, color: '#7A7A84', marginBottom: 6 }}>
+              <p style={{ fontSize: 13, color: '#7A8C78', marginBottom: 6 }}>
                 {fmt(amount, from)} equivale a
               </p>
-              <p style={{ fontSize: 36, fontWeight: 800, color: '#C4A86A', lineHeight: 1 }}>
+              <p style={{ fontSize: 36, fontWeight: 700, color: '#C9A84B', lineHeight: 1, fontFamily: 'Fraunces, serif' }}>
                 {fmt(result, to)}
               </p>
               <div className="flex items-center justify-center gap-2 mt-3">
                 {trendUp
-                  ? <TrendingUp size={13} color="#2E7D52" />
-                  : <TrendingDown size={13} color="#C84040" />}
-                <span style={{ fontSize: 12, color: trendUp ? '#2E7D52' : '#C84040', fontWeight: 600 }}>
+                  ? <TrendingUp size={13} color="#5BAA7A" />
+                  : <TrendingDown size={13} color="#C97070" />}
+                <span style={{ fontSize: 12, color: trendUp ? '#5BAA7A' : '#C97070', fontWeight: 600 }}>
                   {trendUp ? '+' : ''}{weekChange.toFixed(2)}% esta semana
                 </span>
-                <Sparkline data={trend} color={trendUp ? '#2E7D52' : '#C84040'} />
+                <Sparkline data={trend} color={trendUp ? '#5BAA7A' : '#C97070'} />
               </div>
             </div>
           </div>
@@ -343,8 +343,8 @@ export function CurrencyScreen() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.08 }}
                 style={{
-                  backgroundColor: '#111115',
-                  border: '1px solid rgba(196,168,106,0.12)',
+                  backgroundColor: '#172118',
+                  border: '1px solid rgba(201,168,75,0.15)',
                   borderRadius: 16,
                   padding: '12px 16px',
                   display: 'flex',
@@ -352,8 +352,8 @@ export function CurrencyScreen() {
                   gap: 10,
                 }}
               >
-                <Info size={15} color="#C4A86A" style={{ flexShrink: 0, marginTop: 1 }} />
-                <p style={{ fontSize: 13, color: '#EDE9E0', lineHeight: 1.5 }}>{tip}</p>
+                <Info size={15} color="#C9A84B" style={{ flexShrink: 0, marginTop: 1 }} />
+                <p style={{ fontSize: 13, color: '#F2EDE4', lineHeight: 1.5 }}>{tip}</p>
               </motion.div>
             ))}
           </div>
@@ -362,8 +362,8 @@ export function CurrencyScreen() {
         {/* Bank fee warning */}
         <div
           style={{
-            backgroundColor: 'rgba(200,64,64,0.07)',
-            border: '1px solid rgba(200,64,64,0.18)',
+            backgroundColor: 'rgba(201,112,112,0.07)',
+            border: '1px solid rgba(201,112,112,0.2)',
             borderRadius: 16,
             padding: '12px 16px',
             display: 'flex',
@@ -371,23 +371,24 @@ export function CurrencyScreen() {
             gap: 10,
           }}
         >
-          <AlertCircle size={15} color="#C84040" style={{ flexShrink: 0, marginTop: 1 }} />
-          <p style={{ fontSize: 13, color: '#EDE9E0', lineHeight: 1.5 }}>
-            Tu banco puede cobrar entre un <strong style={{ color: '#C84040' }}>2–4%</strong> de comisión adicional. El monto real puede diferir.
+          <AlertCircle size={15} color="#C97070" style={{ flexShrink: 0, marginTop: 1 }} />
+          <p style={{ fontSize: 13, color: '#F2EDE4', lineHeight: 1.5 }}>
+            Tu banco puede cobrar entre un <strong style={{ color: '#C97070' }}>2–4%</strong> de comisión adicional. El monto real puede diferir.
           </p>
         </div>
 
         {/* ── Favorites / Watchlist ────────────────── */}
         <div>
-          <p style={{ fontSize: 12, fontWeight: 700, color: '#4A4A52', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 10 }}>
+          <p style={{ fontSize: 12, fontWeight: 700, color: '#7A8C78', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 10 }}>
             Tabla de cambio
           </p>
           <div
             style={{
-              backgroundColor: '#111115',
-              border: '1px solid rgba(255,255,255,0.07)',
+              backgroundColor: '#172118',
+              border: '1px solid #1E3022',
               borderRadius: 20,
               overflow: 'hidden',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
             }}
           >
             {CURRENCIES.map((c, i) => {
@@ -399,21 +400,21 @@ export function CurrencyScreen() {
 
               return (
                 <div key={c}>
-                  {i > 0 && <div style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.05)', marginLeft: 68 }} />}
+                  {i > 0 && <div style={{ height: 1, backgroundColor: '#1E3022', marginLeft: 68 }} />}
                   <div className="flex items-center gap-3 px-4 py-3.5">
                     <span style={{ fontSize: 24, flexShrink: 0 }}>{FLAGS[c]}</span>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <p style={{ fontSize: 15, fontWeight: 700, color: '#EDE9E0' }}>{c}</p>
-                      <p style={{ fontSize: 12, color: '#7A7A84' }}>{NAMES[c]}</p>
+                      <p style={{ fontSize: 15, fontWeight: 700, color: '#F2EDE4' }}>{c}</p>
+                      <p style={{ fontSize: 12, color: '#7A8C78' }}>{NAMES[c]}</p>
                     </div>
 
-                    <Sparkline data={trend7} color={up ? '#2E7D52' : '#C84040'} />
+                    <Sparkline data={trend7} color={up ? '#5BAA7A' : '#C97070'} />
 
                     <div style={{ textAlign: 'right', minWidth: 80 }}>
-                      <p style={{ fontSize: 14, fontWeight: 700, color: '#EDE9E0', tabularNums: true } as React.CSSProperties}>
+                      <p style={{ fontSize: 14, fontWeight: 700, color: '#F2EDE4', tabularNums: true } as React.CSSProperties}>
                         {c === from ? '1.00' : fmt(rateVsFrom, from)}
                       </p>
-                      <p style={{ fontSize: 11, color: up ? '#2E7D52' : '#C84040', fontWeight: 600, marginTop: 1 }}>
+                      <p style={{ fontSize: 11, color: up ? '#5BAA7A' : '#C97070', fontWeight: 600, marginTop: 1 }}>
                         {up ? '▲' : '▼'} {Math.abs(chg).toFixed(2)}%
                       </p>
                     </div>
@@ -425,8 +426,8 @@ export function CurrencyScreen() {
                     >
                       <Star
                         size={16}
-                        color={isFav ? '#C4A86A' : '#4A4A52'}
-                        fill={isFav ? '#C4A86A' : 'none'}
+                        color={isFav ? '#C9A84B' : '#7A8C78'}
+                        fill={isFav ? '#C9A84B' : 'none'}
                       />
                     </button>
                   </div>
@@ -439,13 +440,14 @@ export function CurrencyScreen() {
         {/* ── Tip calculator ───────────────────────── */}
         <div
           style={{
-            backgroundColor: '#111115',
-            border: '1px solid rgba(27,98,122,0.2)',
+            backgroundColor: '#172118',
+            border: '1px solid #1E3022',
             borderRadius: 20,
             padding: '16px 20px',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
           }}
         >
-          <p style={{ fontSize: 12, fontWeight: 700, color: '#1B627A', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 10 }}>
+          <p style={{ fontSize: 12, fontWeight: 700, color: '#7A8C78', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 10 }}>
             Calculadora de propina
           </p>
           <div className="flex gap-2">
@@ -456,12 +458,12 @@ export function CurrencyScreen() {
                   key={pct}
                   className="flex-1 text-center py-3 rounded-2xl"
                   style={{
-                    backgroundColor: 'rgba(27,98,122,0.1)',
-                    border: '1px solid rgba(27,98,122,0.15)',
+                    backgroundColor: 'rgba(91,170,122,0.08)',
+                    border: '1px solid rgba(91,170,122,0.15)',
                   }}
                 >
-                  <p style={{ fontSize: 12, fontWeight: 700, color: '#1B627A' }}>{pct}%</p>
-                  <p style={{ fontSize: 13, fontWeight: 800, color: '#EDE9E0', marginTop: 2 }}>
+                  <p style={{ fontSize: 12, fontWeight: 700, color: '#5BAA7A' }}>{pct}%</p>
+                  <p style={{ fontSize: 13, fontWeight: 700, color: '#F2EDE4', marginTop: 2, fontFamily: 'Fraunces, serif' }}>
                     {fmt(tip, from)}
                   </p>
                 </div>

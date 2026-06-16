@@ -35,9 +35,9 @@ const SLIDES = [
     id: 3,
     title: 'Travel smarter\nwith AI',
     subtitle: 'Your intelligent travel companion. Ask anything, plan smarter, spend better.',
-    accent: '#8A6ACF',
-    accentGlow: 'rgba(138,106,207,0.35)',
-    gradient: 'linear-gradient(170deg, rgba(42,28,72,0.65) 0%, rgba(9,9,11,0) 55%)',
+    accent: '#C9A84B',
+    accentGlow: 'rgba(201,168,75,0.35)',
+    gradient: 'linear-gradient(170deg, rgba(23,33,24,0.65) 0%, rgba(11,20,16,0) 55%)',
     image: 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800&q=80',
   },
 ]

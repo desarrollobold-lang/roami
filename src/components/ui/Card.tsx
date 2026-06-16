@@ -12,19 +12,11 @@ interface CardProps {
   style?: CSSProperties
 }
 
-const variantStyles: Record<Variant, { className: string; shadow: string }> = {
-  default: {
-    className: 'shadow-card',
-    shadow: '',
-  },
-  elevated: {
-    className: 'shadow-elevated',
-    shadow: '',
-  },
-  interactive: {
-    className: 'shadow-card cursor-pointer',
-    shadow: '',
-  },
+const baseStyle: CSSProperties = {
+  backgroundColor: '#172118',
+  border: '1px solid #1E3022',
+  borderRadius: 20,
+  boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
 }
 
 export function Card({
@@ -35,20 +27,15 @@ export function Card({
   className = '',
   style,
 }: CardProps) {
-  const base =
-    'bg-bg-surface rounded-card border border-border-subtle font-sans'
-
   if (variant === 'interactive') {
     return (
       <motion.div
         onClick={onClick}
-        style={style}
+        style={{ ...baseStyle, cursor: 'pointer', ...style }}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.99 }}
         transition={{ duration: 0.18, ease: 'easeOut' }}
-        className={[base, variantStyles.interactive.className, padding, className]
-          .filter(Boolean)
-          .join(' ')}
+        className={['font-sans', padding, className].filter(Boolean).join(' ')}
       >
         {children}
       </motion.div>
@@ -57,11 +44,9 @@ export function Card({
 
   return (
     <div
-      style={style}
+      style={{ ...baseStyle, ...style }}
       onClick={onClick}
-      className={[base, variantStyles[variant].className, padding, className]
-        .filter(Boolean)
-        .join(' ')}
+      className={['font-sans', padding, className].filter(Boolean).join(' ')}
     >
       {children}
     </div>

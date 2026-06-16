@@ -24,18 +24,24 @@ export function Chip({
       transition={{ duration: 0.1 }}
       className={[
         'inline-flex items-center gap-1.5 px-3.5 py-2 rounded-chip text-sm font-medium',
-        'transition-colors duration-200 cursor-pointer select-none border',
-        selected
-          ? 'bg-accent-purple text-text-primary border-accent-purple'
-          : 'text-text-secondary border-border-subtle hover:border-border-default',
+        'transition-colors duration-200 cursor-pointer select-none',
         className,
       ]
         .filter(Boolean)
         .join(' ')}
       style={
         selected
-          ? { boxShadow: '0 0 20px rgba(103,76,191,0.4)' }
-          : { backgroundColor: 'rgba(255,255,255,0.06)' }
+          ? {
+              backgroundColor: 'rgba(201,168,75,0.15)',
+              color: '#C9A84B',
+              border: '1px solid rgba(201,168,75,0.4)',
+              boxShadow: '0 0 12px rgba(201,168,75,0.25)',
+            }
+          : {
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              color: '#7A8C78',
+              border: '1px solid #1E3022',
+            }
       }
     >
       {icon && <span className="shrink-0">{icon}</span>}

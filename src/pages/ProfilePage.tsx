@@ -324,7 +324,7 @@ export function ProfilePage() {
           />
           <div style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.06)' }} />
           <SettingRow
-            icon={<Gift size={18} color="#8A6ACF" />}
+            icon={<Gift size={18} color="#C9A84B" />}
             label="Invitar amigos"
             onPress={() => {}}
           />

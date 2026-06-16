@@ -5,7 +5,7 @@ import { Button, Input, Chip } from '../../components/ui'
 import type { SplitExpense, SplitGroup } from '../../types/split'
 
 const MEMBER_COLORS: Record<string, string> = {
-  Cris: '#674CBF',
+  Cris: '#C9A84B',
   María: '#18C3F3',
   Diego: '#3F5F3A',
   Ana: '#C9A44E',

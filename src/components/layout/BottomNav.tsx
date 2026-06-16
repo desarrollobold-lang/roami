@@ -10,11 +10,11 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { label: 'Home',     icon: Home,  path: '/home',                        match: (p) => p === '/home' },
-  { label: 'Trips',    icon: Map,   path: '/trips',                       match: (p) => p === '/trips' || p.startsWith('/trips/') },
-  { label: 'Currency', icon: Coins, path: '/currency',                    match: (p) => p === '/currency' },
+  { label: 'Inicio',   icon: Home,  path: '/home',                        match: (p) => p === '/home' },
+  { label: 'Viajes',   icon: Map,   path: '/trips',                       match: (p) => p === '/trips' || p.startsWith('/trips/') },
+  { label: 'IA',       icon: Coins, path: '/currency',                    match: (p) => p === '/currency' },
   { label: 'Split',    icon: Users, path: '/trips/mock-trip-1/split',     match: (p) => p.includes('/split') },
-  { label: 'Profile',  icon: User,  path: '/profile',                     match: (p) => p === '/profile' },
+  { label: 'Perfil',   icon: User,  path: '/profile',                     match: (p) => p === '/profile' },
 ]
 
 export function BottomNav() {
@@ -26,8 +26,8 @@ export function BottomNav() {
     <nav
       className="fixed bottom-0 left-0 right-0 flex items-stretch z-50 glass"
       style={{
-        backgroundColor: 'rgba(9,9,11,0.88)',
-        borderTop: '1px solid rgba(255,255,255,0.06)',
+        backgroundColor: 'rgba(11,20,16,0.92)',
+        borderTop: '1px solid #1E3022',
         paddingBottom: 'env(safe-area-inset-bottom)',
       }}
     >
@@ -45,7 +45,6 @@ export function BottomNav() {
               className="relative flex flex-1 flex-col items-center justify-center"
               style={{ minHeight: 62 }}
             >
-              {/* Elevated currency button */}
               <motion.div
                 whileTap={{ scale: 0.88 }}
                 transition={{ duration: 0.12 }}
@@ -56,11 +55,9 @@ export function BottomNav() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  background: isActive
-                    ? 'linear-gradient(135deg, #D4BA7C 0%, #A8843E 100%)'
-                    : 'rgba(196,168,106,0.12)',
-                  border: isActive ? 'none' : '1px solid rgba(196,168,106,0.2)',
-                  boxShadow: isActive ? '0 0 20px rgba(196,168,106,0.4)' : 'none',
+                  backgroundColor: isActive ? '#C9A84B' : 'rgba(201,168,75,0.1)',
+                  border: isActive ? 'none' : '1px solid rgba(201,168,75,0.18)',
+                  boxShadow: isActive ? '0 0 20px rgba(201,168,75,0.35)' : 'none',
                   marginBottom: 2,
                   transition: 'all 0.25s ease',
                 }}
@@ -68,14 +65,14 @@ export function BottomNav() {
                 <Icon
                   size={20}
                   strokeWidth={isActive ? 2.2 : 1.8}
-                  color={isActive ? '#09090B' : '#C4A86A'}
+                  color={isActive ? '#0B1410' : '#C9A84B'}
                 />
               </motion.div>
               <span
                 style={{
                   fontSize: 10,
                   fontWeight: 600,
-                  color: isActive ? '#C4A86A' : '#4A4A52',
+                  color: isActive ? '#C9A84B' : '#7A8C78',
                   letterSpacing: '0.03em',
                   transition: 'color 0.2s',
                 }}
@@ -96,14 +93,14 @@ export function BottomNav() {
           >
             <motion.div
               animate={{
-                filter: isActive ? 'drop-shadow(0 0 7px rgba(196,168,106,0.65))' : 'none',
+                filter: isActive ? 'drop-shadow(0 0 7px rgba(201,168,75,0.65))' : 'none',
               }}
               transition={{ duration: 0.2 }}
             >
               <Icon
                 size={21}
                 strokeWidth={isActive ? 2.2 : 1.6}
-                color={isActive ? '#C4A86A' : '#4A4A52'}
+                color={isActive ? '#C9A84B' : '#7A8C78'}
                 style={{ transition: 'color 0.2s' }}
               />
             </motion.div>
@@ -112,7 +109,7 @@ export function BottomNav() {
               style={{
                 fontSize: 10,
                 fontWeight: isActive ? 600 : 500,
-                color: isActive ? '#C4A86A' : '#4A4A52',
+                color: isActive ? '#C9A84B' : '#7A8C78',
                 letterSpacing: '0.03em',
                 transition: 'color 0.2s',
                 lineHeight: 1,
@@ -130,8 +127,8 @@ export function BottomNav() {
                     width: 4,
                     height: 4,
                     borderRadius: '50%',
-                    backgroundColor: '#C4A86A',
-                    boxShadow: '0 0 6px rgba(196,168,106,0.8)',
+                    backgroundColor: '#C9A84B',
+                    boxShadow: '0 0 6px rgba(201,168,75,0.8)',
                   }}
                   initial={{ opacity: 0, scale: 0.4 }}
                   animate={{ opacity: 1, scale: 1 }}
